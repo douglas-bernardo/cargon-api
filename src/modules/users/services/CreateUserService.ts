@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import User from '../infra/http/database/entities/User';
 import IUserRepository from '../repositories/IUserRepository';
 
@@ -15,6 +16,12 @@ class CreateUserService {
   }
 
   public async execute({ name, email, password }: IRequest): Promise<User> {
+    const userExists = await this.userRepository.findByEmail(email);
+
+    if (userExists) {
+      throw new AppError('Email already exists');
+    }
+
     return this.userRepository.create({ name, email, password });
   }
 }
