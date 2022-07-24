@@ -11,6 +11,9 @@ import routes from './routes';
 /** Connection */
 import '@shared/infra/typeorm';
 
+/** Dependence injection manager */
+import '@shared/container';
+
 const port = 3333;
 const app = express();
 
