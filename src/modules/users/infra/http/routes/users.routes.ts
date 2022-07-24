@@ -1,34 +1,12 @@
 import { Router } from 'express';
-import { v4 as uuid } from 'uuid';
+import UserController from '../controller/UserController';
 
 const usersRouter = Router();
 
-interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-}
+const userController = new UserController();
 
-const users: IUser[] = [];
+usersRouter.post('/create', userController.create);
 
-usersRouter.post('/create', (request, response) => {
-  const { name, email, password } = request.body;
-
-  const user = {
-    id: uuid(),
-    name,
-    email,
-    password,
-  };
-
-  users.push(user);
-
-  return response.json(user);
-});
-
-usersRouter.get('/', (request, response) => {
-  return response.json({ users });
-});
+usersRouter.get('/', userController.index);
 
 export default usersRouter;
