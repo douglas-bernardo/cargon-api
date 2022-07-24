@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import AppError from '@shared/errors/AppError';
 import User from '@modules/user/infra/typeorm/entities/User';
 import IUserRepository from '../repositories/IUserRepository';
+import IHashProvider from '../providers/HashProviders/models/IHashProvider';
 
 interface IRequest {
   name: string;
@@ -13,6 +14,9 @@ interface IRequest {
 @injectable()
 class CreateUserService {
   constructor(
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
+
     @inject('UserRepository')
     private userRepository: IUserRepository,
   ) {}
@@ -24,7 +28,15 @@ class CreateUserService {
       throw new AppError('Email already exists');
     }
 
-    return this.userRepository.create({ name, email, password });
+    const hashedPassword = await this.hashProvider.generateHash(password);
+
+    const user = await this.userRepository.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    return user;
   }
 }
 
