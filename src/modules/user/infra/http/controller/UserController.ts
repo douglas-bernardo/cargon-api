@@ -1,12 +1,11 @@
-import CreateUserService from '@modules/users/services/CreateUserService';
-import ListUsersService from '@modules/users/services/ListUsersService';
+import CreateUserService from '@modules/user/services/CreateUserService';
+import ListUsersService from '@modules/user/services/ListUsersService';
 import { Request, Response } from 'express';
-import UserRepository from '../database/repositories/UserRepository';
-
-const userRepository = new UserRepository();
+import UserRepository from '@modules/user/infra/typeorm/repositories/UserRepository';
 
 export default class UserController {
   public async index(request: Request, response: Response): Promise<Response> {
+    const userRepository = new UserRepository();
     const listUserService = new ListUsersService(userRepository);
 
     const users = await listUserService.execute();
@@ -16,6 +15,7 @@ export default class UserController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
+    const userRepository = new UserRepository();
 
     const createUserService = new CreateUserService(userRepository);
 

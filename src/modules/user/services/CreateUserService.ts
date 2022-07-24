@@ -1,5 +1,5 @@
 import AppError from '@shared/errors/AppError';
-import User from '../infra/http/database/entities/User';
+import User from '@modules/user/infra/typeorm/entities/User';
 import IUserRepository from '../repositories/IUserRepository';
 
 interface IRequest {
@@ -9,11 +9,7 @@ interface IRequest {
 }
 
 class CreateUserService {
-  userRepository: IUserRepository;
-
-  constructor(userRepository: IUserRepository) {
-    this.userRepository = userRepository;
-  }
+  constructor(private userRepository: IUserRepository) {}
 
   public async execute({ name, email, password }: IRequest): Promise<User> {
     const userExists = await this.userRepository.findByEmail(email);
