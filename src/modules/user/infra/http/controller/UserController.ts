@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
+import { instanceToPlain } from 'class-transformer';
 
 import CreateUserService from '@modules/user/services/CreateUserService';
 import ListUsersService from '@modules/user/services/ListUsersService';
@@ -10,7 +11,7 @@ export default class UserController {
 
     const users = await listUserService.execute();
 
-    return response.json(users);
+    return response.json(instanceToPlain(users));
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -24,6 +25,6 @@ export default class UserController {
       password,
     });
 
-    return response.json(user);
+    return response.json(instanceToPlain(user));
   }
 }
