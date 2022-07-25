@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /usr/share/yarn/bin/yarn.js add class-trasnsformer
+  /usr/bin/node /usr/share/yarn/bin/yarn.js add @babel/cli @babel/core @babel/node @babel/preset-env @babel/preset-typescript babel-plugin-model-resolver -D
 
 PATH: 
   /home/douglas/.local/share/zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/douglas/Android/Sdk/emulator:/home/douglas/Android/Sdk/tools:/home/douglas/Android/Sdk/tools/bin:/home/douglas/Android/Sdk/platform-tools:/home/douglas/android-studio/bin:/usr/local/go/bin:/home/douglas/.yarn/bin:/home/douglas/Android/Sdk/emulator:/home/douglas/Android/Sdk/tools:/home/douglas/Android/Sdk/tools/bin:/home/douglas/Android/Sdk/platform-tools:/home/douglas/android-studio/bin:/usr/local/go/bin:/home/douglas/.yarn/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/class-trasnsformer: Not found
+  Error: https://registry.yarnpkg.com/babel-plugin-model-resolver: Not found
       at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66138:18)
       at Request.self.callback (/usr/share/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:527:28)
@@ -33,13 +33,16 @@ npm manifest:
     "main": "index.js",
     "license": "MIT",
     "scripts": {
+      "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
       "dev:server": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
       "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-      "test": "jest"
+      "test": "jest",
+      "start": "node dist/shared/infra/http/server.js"
     },
     "dependencies": {
       "bcryptjs": "^2.4.3",
       "celebrate": "^15.0.1",
+      "class-transformer": "^0.5.1",
       "cors": "^2.8.5",
       "dotenv": "^16.0.1",
       "express": "^4.18.1",
@@ -1437,6 +1440,11 @@ Lockfile:
     version "1.2.2"
     resolved "https://registry.yarnpkg.com/cjs-module-lexer/-/cjs-module-lexer-1.2.2.tgz#9f84ba3244a512f3a54e5277e8eef4c489864e40"
     integrity sha512-cOU9usZw8/dXIXKtwa8pM0OTJQuJkxMN6w30csNRUerHfeQ5R6U3kkU/FtJeIf3M202OHfY2U8ccInBG7/xogA==
+  
+  class-transformer@^0.5.1:
+    version "0.5.1"
+    resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.5.1.tgz#24147d5dffd2a6cea930a3250a677addf96ab336"
+    integrity sha512-SQa1Ws6hUbfC98vKGxZH3KFY0Y1lm5Zm0SY8XX9zbK7FJCyVEac3ATW0RIpwzW+oOfmHE5PMPufDG9hCfoEOMw==
   
   cli-highlight@^2.1.11:
     version "2.1.11"
