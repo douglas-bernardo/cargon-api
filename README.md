@@ -22,7 +22,7 @@
 
 ---
 
-A REST API using NodeJS, Express and Tyopeorm
+A REST API using NodeJS, Express and Typeorm
 
 &nbsp;
 
