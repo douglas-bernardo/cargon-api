@@ -1,5 +1,5 @@
 <h1 style="display: flex; align-items: center; justify-content: center;">
-  Cargo - API
+  Cargon - API
 </h1>
 
 &nbsp;
